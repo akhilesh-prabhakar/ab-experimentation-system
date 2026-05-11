@@ -1,0 +1,12 @@
+services:
+  ab-experimentation:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./experiments.json:/app/experiments.json:ro
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
