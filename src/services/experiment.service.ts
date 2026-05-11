@@ -14,7 +14,11 @@ class ExperimentService {
 
         return activeExperiments.map(exp => {
             const bucket = getBucket(exp.name, userId);
-            const variantIndex = resolveVariantIndex(bucket, exp.splitPercent);
+            const variantIndex = resolveVariantIndex(
+                bucket,
+                exp.splitPercent,
+                exp.variants.length
+            );
             const variant = exp.variants[variantIndex];
 
             return {
@@ -34,7 +38,11 @@ class ExperimentService {
         if (!experiment) return null;
 
         const bucket = getBucket(experiment.name, userId);
-        const variantIndex = resolveVariantIndex(bucket, experiment.splitPercent);
+        const variantIndex = resolveVariantIndex(
+            bucket,
+            experiment.splitPercent,
+            experiment.variants.length
+        );
         const variant = experiment.variants[variantIndex];
 
         return {
