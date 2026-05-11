@@ -9,7 +9,6 @@ export interface Variant {
 
 export interface Experiment {
     name: string;
-    description: string;
     enabled: boolean;
     splitPercent: number;
     variants: Variant[];
