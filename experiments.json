@@ -1,0 +1,46 @@
+[
+  {
+    "name": "checkout-button-color",
+    "description": "Testing button color impact on checkout conversion",
+    "enabled": true,
+    "splitPercent": 50,
+    "variants": [
+      {
+        "name": "control",
+        "config": {
+          "button_color": "blue",
+          "button_text": "Buy Now"
+        }
+      },
+      {
+        "name": "treatment",
+        "config": {
+          "button_color": "green",
+          "button_text": "Get It Now"
+        }
+      }
+    ]
+  },
+  {
+    "name": "homepage-banner",
+    "description": "Testing banner copy on homepage",
+    "enabled": true,
+    "splitPercent": 80,
+    "variants": [
+      {
+        "name": "control",
+        "config": {
+          "banner_text": "Welcome back!",
+          "show_discount": false
+        }
+      },
+      {
+        "name": "treatment",
+        "config": {
+          "banner_text": "You have a special offer!",
+          "show_discount": true
+        }
+      }
+    ]
+  }
+]
