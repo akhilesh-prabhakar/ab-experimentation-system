@@ -7,7 +7,6 @@ class ExperimentController {
         try {
             const { user_id, experiment } = req.query;
 
-            // Validate user_id
             if (!user_id || typeof user_id !== 'string' || user_id.trim() === '') {
                 const error: ErrorResponse = {
                     status: 'error',
@@ -18,7 +17,6 @@ class ExperimentController {
                 return;
             }
 
-            // Single experiment requested
             if (experiment) {
                 if (typeof experiment !== 'string') {
                     const error: ErrorResponse = {
@@ -50,12 +48,12 @@ class ExperimentController {
                 return;
             }
 
-            // All experiments
             const results = experimentService.assign(user_id.trim());
-            res.status(200).json({
+            const response: SuccessResponse = {
                 status: 'success',
                 data: results,
-            });
+            };
+            res.status(200).json(response);
 
         } catch (err) {
             next(err);
