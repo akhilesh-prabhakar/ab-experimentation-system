@@ -22,10 +22,55 @@ function loadExperiments(): Experiment[] {
         throw new Error('experiments.json must be a non-empty array');
     }
 
+    validateExperiments(parsed);
+
     return parsed as Experiment[];
 }
 
-// Load once at startup — not on every request
+function validateExperiments(experiments: unknown[]): void {
+    experiments.forEach((item, index) => {
+        const exp = item as Record<string, unknown>;
+        const label = `experiments[${index}]`;
+
+        if (typeof exp.name !== 'string' || exp.name.trim() === '') {
+            throw new Error(`${label}: name must be a non-empty string`);
+        }
+
+        if (typeof exp.enabled !== 'boolean') {
+            throw new Error(`${label}: enabled must be a boolean`);
+        }
+
+        if (
+            typeof exp.splitPercent !== 'number' ||
+            exp.splitPercent < 0 ||
+            exp.splitPercent > 100
+        ) {
+            throw new Error(`${label}: splitPercent must be a number between 0 and 100`);
+        }
+
+        if (!Array.isArray(exp.variants) || exp.variants.length < 2) {
+            throw new Error(`${label}: variants must contain at least two entries`);
+        }
+
+        exp.variants.forEach((variantItem, variantIndex) => {
+            const variant = variantItem as Record<string, unknown>;
+            const variantLabel = `${label}.variants[${variantIndex}]`;
+
+            if (typeof variant.name !== 'string' || variant.name.trim() === '') {
+                throw new Error(`${variantLabel}: name must be a non-empty string`);
+            }
+
+            if (
+                typeof variant.config !== 'object' ||
+                variant.config === null ||
+                Array.isArray(variant.config)
+            ) {
+                throw new Error(`${variantLabel}: config must be an object`);
+            }
+        });
+    });
+}
+
 const experiments: Experiment[] = loadExperiments();
 
 export default experiments;
