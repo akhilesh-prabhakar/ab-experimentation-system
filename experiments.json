@@ -1,7 +1,6 @@
 [
   {
     "name": "checkout-button-color",
-    "description": "Testing button color impact on checkout conversion",
     "enabled": true,
     "splitPercent": 50,
     "variants": [
@@ -23,7 +22,6 @@
   },
   {
     "name": "homepage-banner",
-    "description": "Testing banner copy on homepage",
     "enabled": true,
     "splitPercent": 80,
     "variants": [
