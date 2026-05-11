@@ -10,6 +10,16 @@ export function getBucket(experimentName: string, userId: string): number {
 
 export function resolveVariantIndex(bucket: number, splitPercent: number, variantCount: number): number {
     if (variantCount <= 1) return 0;
+
+    // All traffic to control — treatments unreachable
+    if (splitPercent >= 100) return 0;
+
+    // No control traffic — divide evenly across all variants
+    if (splitPercent <= 0) {
+        const sliceSize = 100 / variantCount;
+        return Math.min(Math.floor(bucket / sliceSize), variantCount - 1);
+    }
+
     if (bucket < splitPercent) return 0;
 
     const remaining = 100 - splitPercent;
