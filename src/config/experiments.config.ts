@@ -48,6 +48,10 @@ function validateExperiments(experiments: unknown[]): void {
             throw new Error(`${label}: splitPercent must be a number between 0 and 100`);
         }
 
+        if (exp.splitPercent === 100) {
+            throw new Error(`${label}: splitPercent of 100 makes all treatment variants unreachable`);
+        }
+
         if (!Array.isArray(exp.variants) || exp.variants.length < 2) {
             throw new Error(`${label}: variants must contain at least two entries`);
         }
