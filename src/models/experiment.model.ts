@@ -30,5 +30,5 @@ export interface ErrorResponse {
 
 export interface SuccessResponse {
     status: 'success';
-    data: AssignmentResult;
+    data: AssignmentResult | AssignmentResult[];
 }
