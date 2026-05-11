@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import app from './app';
 
 const PORT = process.env.PORT || 8080;
@@ -13,7 +14,6 @@ const server = app.listen(PORT, () => {
     );
 });
 
-// Graceful shutdown
 process.on('SIGTERM', () => {
     console.log(JSON.stringify({
         timestamp: new Date().toISOString(),
